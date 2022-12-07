@@ -27,9 +27,9 @@ function createGalleryItemsMarkup(galleryItems) {
 function onGalleryImgClick(event) {
   blockAction(event);
 
-  const largeImg = event.target.dataset.source;
+  const originalImg = event.target.dataset.source;
   const instance = basicLightbox.create(`
-    <img src="${largeImg}" width="800" height="600">
+    <img src="${originalImg}" width="800" height="600">
 `);
 
   const isImgEl = event.target.classList.contains("gallery__image");
