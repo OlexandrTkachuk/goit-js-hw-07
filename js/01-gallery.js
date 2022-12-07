@@ -10,27 +10,47 @@ function createGalleryItemsMarkup(galleryItems) {
   return galleryItems
     .map(({ preview, original, description }) => {
       return `
-        <div class="gallery__item">
-          <a class="gallery__link" href="${original}">
-            <img
-              class="gallery__image"
-              src="${preview}"
-              data-source="${original}"
-              alt="${description}"
-            />
-          </a>
-        </div>
-    `;
+      <div class="gallery__item">
+        <a class="gallery__link" href="large-image.jpg">
+          <img
+            class="gallery__image"
+            src="${preview}"
+            data-source="${original}"
+            alt="${description}"
+          />
+        </a>
+      </div>`;
     })
     .join("");
 }
 
 function onGalleryImgClick(event) {
-  event.preventDefault();
+  blockAction(event);
 
-  if (!event.target === "IMG") {
+  const largeImg = event.target.dataset.source;
+  const instance = basicLightbox.create(`
+    <img src="${largeImg}" width="800" height="600">
+`);
+
+  const isImgEl = event.target.classList.contains("gallery__image");
+
+  if (!isImgEl) {
     return;
   }
 
-  console.log(event.target.dataset.source);
+  instance.show();
+
+  galleryContainer.addEventListener(
+    "keydown",
+    (event) => {
+      if (event.code === "Escape") {
+        instance.close();
+      }
+    },
+    { once: true }
+  );
+}
+
+function blockAction(event) {
+  event.preventDefault();
 }
