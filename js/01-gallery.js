@@ -40,15 +40,14 @@ function onGalleryImgClick(event) {
 
   instance.show();
 
-  galleryContainer.addEventListener(
-    "keydown",
-    (event) => {
-      if (event.code === "Escape") {
-        instance.close();
-      }
-    },
-    { once: true }
-  );
+  galleryContainer.addEventListener("keydown", onEscapePress);
+
+  function onEscapePress(event) {
+    if (event.code === "Escape") {
+      galleryContainer.removeEventListener("keydown", onEscapePress);
+      instance.close();
+    }
+  }
 }
 
 function blockAction(event) {
