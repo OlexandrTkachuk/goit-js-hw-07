@@ -27,16 +27,16 @@ function createGalleryItemsMarkup(galleryItems) {
 function onGalleryImgClick(event) {
   blockAction(event);
 
-  const originalImg = event.target.dataset.source;
-  const instance = basicLightbox.create(`
-    <img src="${originalImg}" width="800" height="600">
-`);
-
   const isImgEl = event.target.classList.contains("gallery__image");
 
   if (!isImgEl) {
     return;
   }
+
+  const originalImg = event.target.dataset.source;
+  const instance = basicLightbox.create(`
+    <img src="${originalImg}" width="800" height="600">
+  `);
 
   instance.show();
 
